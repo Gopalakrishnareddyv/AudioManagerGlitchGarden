@@ -7,8 +7,13 @@ public class LevelManager : MonoBehaviour
 {
     public float autoLoadLevelTimer;
     private void Start()
+
     {
-        Invoke("LoadNextLevel", autoLoadLevelTimer);
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            Invoke("LoadNextLevel", autoLoadLevelTimer);
+
+        }
     }
     //[System.Obsolete]
     public void LoadLevel(string name)

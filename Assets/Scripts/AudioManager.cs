@@ -61,9 +61,9 @@ public class AudioManager : MonoBehaviour
         }
 
     }
-    public void SetVolume(string name,float volumeValue)
+    public void SetVolume(string audioName,float volumeValue)
     {
-        Sound s = Array.Find(sounds, Sound => Sound.audioName == name);
+        Sound s = Array.Find(sounds, Sound => Sound.audioName == audioName);
         if (s == null)
         {
             Debug.LogWarning("Hey AudioName " + name + " not found");
@@ -74,5 +74,4 @@ public class AudioManager : MonoBehaviour
             s.audioSource.volume = volumeValue;
         }
     }
-
 }

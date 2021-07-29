@@ -50,9 +50,3 @@ MonoBehaviour:
     pitch: 0.649
     audioSource: {fileID: 0}
     loop: 1
-  - audioName: Collision
-    audioClip: {fileID: 8300000, guid: da51544d0f0f3d341a59301efc62d90e, type: 3}
-    volume: 0.572
-    pitch: 0.649
-    audioSource: {fileID: 0}
-    loop: 0
