@@ -4,48 +4,72 @@ using UnityEngine;
 
 public class Attackers : MonoBehaviour
 {
-    [Range(-1f, 2f)]
-    public float lizardSpeed;
-    Animator lizardAnim;
     // Start is called before the first frame update
+    [Range(-1f, 2f)]
+    public float lizardWalkSpeed;
+    Animator lizardAnim;
+    SpriteRenderer lizardSprite;
+    //public GameObject currentObject;
+    float currentDamage = 10.0f;
+
+
     void Start()
     {
         lizardAnim = GetComponent<Animator>();
-        //lizardAnim.SetTrigger("isAppear");
-        if (lizardSpeed > 0)
-        {
-            lizardAnim.SetTrigger("isAppear");
-
-
-
-        }
+        Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
+        lizardSprite = GetComponent<SpriteRenderer>();
+        rb.isKinematic = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //if (!currentObject)
+        //{
+         //   lizardAnim.SetBool("isAttacking", false);
 
-        if (lizardSpeed > 0)
+        //}
+        if (lizardWalkSpeed > 0)
         {
+            lizardSprite.flipX = false;
+            transform.Translate(Vector3.left * lizardWalkSpeed * Time.deltaTime);
 
-            lizardAnim.SetTrigger("isWalk");
-            transform.Translate(Vector3.left * lizardSpeed * Time.deltaTime);
         }
+
+
+
 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            lizardSpeed = 0f;
-            lizardAnim.SetTrigger("isAttack");
-            
-        }
-        else if (collision.gameObject.tag == "Stone")
-        {
-            lizardAnim.SetTrigger("isFoxJump");
-        }
+       
+        lizardAnim.SetBool("isAttacking", true);
+        StrikeCurrentTarget(currentDamage);
+
+
     }
-    
+
+    public void SetSpeed(float speed)
+    {
+        lizardWalkSpeed = speed;
+    }
+
+    public void StrikeCurrentTarget(float currentdamage)
+    {
+        GameObject.FindObjectOfType<Health>().HealthDamage(currentdamage);
+        /*  if (currentObject)
+          {
+            Health health=  currentObject.GetComponent<Health>();
+              if(health)
+              {
+                  health.HealthDamage(currentdamage);
+              }
+          }*/
+    }
+
+    public void Attack(GameObject obj)
+    {
+        currentObject = obj;
+    }
 }
